@@ -2,6 +2,8 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,41 +16,35 @@ import java.util.ArrayList;
  * @author Jakub
  */
 public class Player {
-    long id;
-    int centrex;
-    int centrey;
-    int currentDirection;
-    Color color;
-    ArrayList<Integer> pathx = new ArrayList();
-    ArrayList<Integer> pathy = new ArrayList();
-    int up;
-    int down;
-    int left;
-    int right;
+    private static long idGenerator = 0;
+    
+    private long id;
+    private Position2D position;
+    private DirectionEnum currentDirection;
+    private Color color;
+    private List<Position2D> path = new ArrayList<>();
+    private int upKey;
+    private int downKey;
+    private int leftKey;
+    private int rightKey;
     boolean mousecontroled = false;
 
-    public Player(long id, int centrex, int centrey, int currentDirection, Color color, int up, int down, int left, int right) {
-        this.id = id;
-        this.centrex = centrex;
-        this.centrey = centrey;
+    public Player(Position2D position, DirectionEnum currentDirection, Color color, int up, int down, int left, int right) {
+        id = idGenerator++;
+        this.position = position;
         this.currentDirection = currentDirection;
         this.color = color;
-        this.up = up;
-        this.down = down;
-        this.left = left;
-        this.right = right;
+        this.upKey = up;
+        this.downKey = down;
+        this.leftKey = left;
+        this.rightKey = right;
     }
 
-    public int getCentrex() {
-        return centrex;
+    public Position2D getPosition() {
+        return position;
     }
 
-
-    public int getCentrey() {
-        return centrey;
-    }
-
-    public int getCurrentDirection() {
+    public DirectionEnum getCurrentDirection() {
         return currentDirection;
     }
 
@@ -56,74 +52,111 @@ public class Player {
         return color;
     }
 
-    public ArrayList<Integer> getPathx() {
-        return pathx;
+    public List<Position2D> getPath() {
+        return path;
     }
 
-    public ArrayList<Integer> getPathy() {
-        return pathy;
+    public int getUpKey() {
+        return upKey;
     }
 
-    public int getUp() {
-        return up;
-    }
-
-    public int getDown() {
-        return down;
-    }
-
-    public int getLeft() {
-        return left;
-    }
-
-    public int getRight() {
-        return right;
-    }
-
-    public void setCentrex(int centrex) {
-        this.centrex = centrex;
-    }
-
-    public void setCentrey(int centrey) {
-        this.centrey = centrey;
-    }
-
-    public void setCurrentDirection(int currentDirection) {
-        this.currentDirection = currentDirection;
+    public int getDownKey() {
+        return downKey;
     }
 
     public void setColor(Color color) {
         this.color = color;
     }
 
-    public void setPathx(ArrayList<Integer> pathx) {
-        this.pathx = pathx;
+    public void setUpKey(int upKey) {
+        this.upKey = upKey;
     }
 
-    public void setPathy(ArrayList<Integer> pathy) {
-        this.pathy = pathy;
+    public void setDownKey(int downKey) {
+        this.downKey = downKey;
     }
 
-    public void setUp(int up) {
-        this.up = up;
+    public static long getIdGenerator() {
+        return idGenerator;
     }
 
-    public void setDown(int down) {
-        this.down = down;
+    public static void setIdGenerator(long idGenerator) {
+        Player.idGenerator = idGenerator;
     }
 
-    public void setLeft(int left) {
-        this.left = left;
+    public long getId() {
+        return id;
     }
 
-    public void setRight(int right) {
-        this.right = right;
+    public void setId(long id) {
+        this.id = id;
     }
 
+    public void setPath(ArrayList<Position2D> path) {
+        this.path = path;
+    }
+
+    public boolean isMousecontroled() {
+        return mousecontroled;
+    }
+
+    public void setMousecontroled(boolean mousecontroled) {
+        this.mousecontroled = mousecontroled;
+    }
+
+    public void setPosition(Position2D position) {
+        this.position = position;
+    }
+
+    public void setCurrentDirection(DirectionEnum currentDirection) {
+        this.currentDirection = currentDirection;
+    }
+
+    public void setPath(List<Position2D> path) {
+        this.path = path;
+    }
+
+    /**
+     * @return the leftKey
+     */
+    public int getLeftKey() {
+        return leftKey;
+    }
+
+    /**
+     * @param leftKey the leftKey to set
+     */
+    public void setLeftKey(int leftKey) {
+        this.leftKey = leftKey;
+    }
+
+    /**
+     * @return the rightKey
+     */
+    public int getRightKey() {
+        return rightKey;
+    }
+
+    /**
+     * @param rightKey the rightKey to set
+     */
+    public void setRightKey(int rightKey) {
+        this.rightKey = rightKey;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 67 * hash + Objects.hashCode(this.position);
+        hash = 67 * hash + Objects.hashCode(this.currentDirection);
+        hash = 67 * hash + Objects.hashCode(this.color);
+        hash = 67 * hash + Objects.hashCode(this.path);
+        hash = 67 * hash + this.upKey;
+        hash = 67 * hash + this.getDownKey();
+        hash = 67 * hash + this.getLeftKey();
+        hash = 67 * hash + this.getRightKey();
+        hash = 67 * hash + (this.mousecontroled ? 1 : 0);
         return hash;
     }
 
@@ -139,17 +172,34 @@ public class Player {
         if (this.id != other.id) {
             return false;
         }
+        if (!Objects.equals(this.position, other.position)) {
+            return false;
+        }
+        if (this.currentDirection != other.currentDirection) {
+            return false;
+        }
+        if (!Objects.equals(this.color, other.color)) {
+            return false;
+        }
+        if (!Objects.equals(this.path, other.path)) {
+            return false;
+        }
+        if (this.upKey != other.upKey) {
+            return false;
+        }
+        if (this.getDownKey() != other.getDownKey()) {
+            return false;
+        }
+        if (this.getLeftKey() != other.getLeftKey()) {
+            return false;
+        }
+        if (this.getRightKey() != other.getRightKey()) {
+            return false;
+        }
+        if (this.mousecontroled != other.mousecontroled) {
+            return false;
+        }
         return true;
-    }
-
-
-
-
-    
-
-    
-
-
-    
+    }    
     
 }

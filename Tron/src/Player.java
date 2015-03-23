@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author Jakub
  */
 public class Player {
+    long id;
     int centrex;
     int centrey;
     int currentDirection;
@@ -24,8 +25,10 @@ public class Player {
     int down;
     int left;
     int right;
+    boolean mousecontroled = false;
 
-    public Player(int centrex, int centrey, int currentDirection, Color color, int up, int down, int left, int right) {
+    public Player(long id, int centrex, int centrey, int currentDirection, Color color, int up, int down, int left, int right) {
+        this.id = id;
         this.centrex = centrex;
         this.centrey = centrey;
         this.currentDirection = currentDirection;
@@ -115,6 +118,28 @@ public class Player {
 
     public void setRight(int right) {
         this.right = right;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Player other = (Player) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 
 

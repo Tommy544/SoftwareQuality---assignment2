@@ -15,14 +15,18 @@ public class yourclass extends Core implements KeyListener, MouseListener,
 		MouseMotionListener {
 	
         List<Player> players = new ArrayList<Player>();
-        Player vladoChuj = new Player(40, 40, 1, Color.yellow, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);         
-        Player vekyPanKubo = new Player(300, 300, 1, Color.blue, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D); 
+        Player vladoChuj = new Player(1,40, 40, 1, Color.yellow, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);         
+        Player vekyPanKubo = new Player(2,300, 300, 1, Color.blue, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D); 
+        Player smradlavPeto = new Player(3, 150, 150, 3, Color.red, 0, 0, 0, 0);
+        
 	int moveAmount = 5;
 
 	public void init() {
 		super.init();
                 players.add(vladoChuj);
                 players.add(vekyPanKubo);
+                smradlavPeto.mousecontroled=true;
+                players.add(smradlavPeto);
 		Window w = sm.getFullScreenWindow();
 		w.addKeyListener(this);
 		w.addMouseListener(this);
@@ -34,6 +38,8 @@ public class yourclass extends Core implements KeyListener, MouseListener,
 	}
 
 	public void draw(Graphics2D g) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
             for(Player tmp : players){
 		switch(tmp.currentDirection){
 		case 0:
@@ -64,24 +70,17 @@ public class yourclass extends Core implements KeyListener, MouseListener,
                                 tmp.centrex = sm.getWidth();
                             }
 			break;
-		}
-		
-                for (int x = 0; x < tmp.pathx.size(); x++){
-                    if ((tmp.getCentrex() == tmp.pathx.get(x)) && (tmp.centrey == tmp.pathy.get(x))){
-                            System.exit(0);
-                    }
-                }
+		}		                
 
                 tmp.pathx.add(tmp.getCentrex());
                 tmp.pathy.add(tmp.centrey);
-
-                g.setColor(Color.BLACK);
-                g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
+         
                 for (int i = 0; i < tmp.pathx.size(); i++){
                     g.setColor(tmp.color);
                     g.fillRect(tmp.pathx.get(i), tmp.pathy.get(i), 10, 10);
                 }
             }
+            checkCollisions();
         }
 
 	public void keyPressed(KeyEvent e) {
@@ -90,22 +89,38 @@ public class yourclass extends Core implements KeyListener, MouseListener,
                 if(e.getKeyCode() == tmp.up){
                     if (tmp.currentDirection != 2){
 			tmp.currentDirection = 0;
+                    }
                 }else if(e.getKeyCode() == tmp.down){
                     if (tmp.currentDirection != 0){
 			tmp.currentDirection = 2;
                     }    
                 }else if(e.getKeyCode() == tmp.left){
-                    if (tmp.currentDirection != 3){
-			tmp.currentDirection = 1;
+                    if (tmp.currentDirection != 1){
+			tmp.currentDirection = 3;
                     }                        
                 }else if(e.getKeyCode() == tmp.right){
-                    if (tmp.currentDirection != 1){
-                        tmp.currentDirection = 3;
+                    if (tmp.currentDirection != 3){
+                        tmp.currentDirection = 1;
                     }                      
                 }
             }
         }
-    }
+        
+        public void checkCollisions(){
+            for(Player player : players){
+                for(Player oponentPlayer : players){
+                    for(int i=0; i < oponentPlayer.pathx.size(); i++){
+                        if(player.equals(oponentPlayer) && i == (player.pathx.size()-1)){
+                            continue;
+                        }
+                        if(player.centrex == oponentPlayer.pathx.get(i) && player.centrey == oponentPlayer.pathy.get(i)){
+                            stop();
+                        }
+                    }
+                }
+            }
+        }
+    
 
 	public void keyReleased(KeyEvent e) {
 
@@ -116,7 +131,20 @@ public class yourclass extends Core implements KeyListener, MouseListener,
 	}
 
 	public void mouseClicked(MouseEvent e) {
-
+            
+            for(Player tmp : players){
+                if(tmp.mousecontroled){
+                    if(e.getButton() == MouseEvent.BUTTON1){  
+                        int direction = (tmp.currentDirection - 1) % 4;
+                        tmp.currentDirection = direction < 0 ? direction + 4 : direction;
+                        System.out.println(tmp.currentDirection);
+                    }else if(e.getButton() == MouseEvent.BUTTON3){
+                        int direction = (tmp.currentDirection + 1) % 4;
+                        tmp.currentDirection = direction < 0 ? direction + 4 : direction;
+                        System.out.println(tmp.currentDirection);
+                    }
+                }
+            }
 	}
 
 	public void mouseEntered(MouseEvent arg0) {

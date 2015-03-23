@@ -15,8 +15,11 @@ import java.util.Objects;
  */
 
 /**
+ * Class represents a single player in the game - his bike.
+ * Defines attributes for all properties of the player.
  *
- * @author Jakub
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public class Player {
     private static long idGenerator = 0;
@@ -32,6 +35,17 @@ public class Player {
     private int rightKey;
     boolean mousecontroled = false;
 
+    /**
+     * Simple constructor.
+     * 
+     * @param position Position of the player on the game map
+     * @param currentDirection Current direction the player is facing
+     * @param color The color of the player bike
+     * @param up Key code for changing direction to UP
+     * @param down Key code for changing direction to DOWN
+     * @param left Key code for changing direction to LEFT
+     * @param right Key code for changing direction to RIGHT
+     */
     public Player(Position2D position, DirectionEnum currentDirection, Color color, int up, int down, int left, int right) {
         id = idGenerator++;
         this.position = position;

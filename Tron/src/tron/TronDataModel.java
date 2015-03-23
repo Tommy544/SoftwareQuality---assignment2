@@ -13,8 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Class represents internal state of the game.
+ * Class has methods that directly change internal state.
+ * Class does not have any responsibilities for graphical data representation
  *
- * @author vcaniga
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public class TronDataModel {
  
@@ -29,12 +33,25 @@ public class TronDataModel {
     private final int windowHeight;
 
     
+    /**
+     * Simple constructor
+     * 
+     * @param moveAmount Speed of bike movement
+     * @param windowWidth Width of the game window
+     * @param windowHeight Height of the game window
+     */
     public TronDataModel(int moveAmount, int windowWidth, int windowHeight) {
         this.moveAmount = moveAmount;
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
     }
     
+    /**
+     * Registers predefined player to the game.
+     * Only registered players will be able to play and will be drawn on the screen.
+     * 
+     * @param player 
+     */
     public void registerPlayer(int player) {
         switch (player) {
             case 1:
@@ -55,6 +72,9 @@ public class TronDataModel {
         }
     }
     
+    /**
+     * Internally moves all players by one step to their appropriate direction.
+     */
     public void movePlayers() {
         int xPos;
         int yPos;
@@ -99,6 +119,11 @@ public class TronDataModel {
         }
     }
     
+    /**
+     * Tries to change players orientation based on user's key input.
+     * 
+     * @param e User's key input
+     */
     public void changePlayerOrientation(KeyEvent e) {
         for (Player player : players) {
             if (e.getKeyCode() == player.getUpKey()) {
@@ -121,6 +146,11 @@ public class TronDataModel {
         }
     }
     
+    /**
+     * Tries to change players orientation based on user's mouse input.
+     * 
+     * @param e User's mouse input
+     */
     public void changePlayerOrientation(MouseEvent e) {
         for (Player player : players) {
             if (player.mousecontroled) {
@@ -133,6 +163,11 @@ public class TronDataModel {
         }
     }
     
+    /**
+     * Checks all players for collision with himself or with other player.
+     * 
+     * @return true if there was a collision, false if not
+     */
     public boolean checkCollisions() {
         for (Player player : players) {
             for (Player oponentPlayer : players) {
@@ -149,6 +184,11 @@ public class TronDataModel {
         return false;
     }
 
+    /**
+     * Simple getter.
+     * 
+     * @return List of all players that are registered in game
+     */
     public List<Player> getPlayers() {
         return players;
     }

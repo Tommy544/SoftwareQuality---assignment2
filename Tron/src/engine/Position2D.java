@@ -7,19 +7,32 @@ package engine;
  */
 
 /**
+ * Class representing a point in the 2D space.
  *
- * @author vcaniga
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public class Position2D {
     
     private int x;
     private int y;
 
+    /**
+     * Simple constructor
+     * 
+     * @param x X coordinate
+     * @param y Y coordinate
+     */
     public Position2D(int x, int y) {
         this.x = x;
         this.y = y;
     }
     
+    /**
+     * Simple copy constructor
+     * 
+     * @param position Original position
+     */
     public Position2D(Position2D position) {
         this.x = position.getX();
         this.y = position.getY();

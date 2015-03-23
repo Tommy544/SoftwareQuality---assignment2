@@ -7,8 +7,10 @@ package tron;
  */
 
 /**
+ * Enum representing all possible bike directions.
  *
- * @author vcaniga
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public enum DirectionEnum {
     UP,
@@ -16,6 +18,12 @@ public enum DirectionEnum {
     LEFT,
     RIGHT;
     
+    /**
+     * Static method used for determining next direction after right turn.
+     * 
+     * @param direction Original direction
+     * @return Direction after the turn
+     */
     public static DirectionEnum turnRight(DirectionEnum direction) {
         switch (direction) {
             case UP:
@@ -31,6 +39,12 @@ public enum DirectionEnum {
         }
     }
     
+    /**
+     * Static method used for determining next direction after left turn.
+     * 
+     * @param direction Original direction
+     * @return Direction after the turn
+     */
     public static DirectionEnum turnLeft(DirectionEnum direction) {
         switch (direction) {
             case UP:

@@ -13,14 +13,22 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**
+ * Main class of th game.
+ * Class takes care of graphical representation of the actual state of the game
  *
- * @author vcaniga
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public class Tron extends Core {
 
     private final int MOVE_AMOUNT = 5;
     private TronDataModel tronDataModel;
 
+    /**
+     * Initialization method that initializes internal data model class - TronDataModel
+     * and registers players to game.
+     * Overrides calls init() method of superclass Core.
+     */
     @Override
     public void init() {
         super.init();
@@ -35,6 +43,11 @@ public class Tron extends Core {
         // ===================================================================================================================
     }
 
+    /**
+     * Method used to graphically represent internal data model to provided Graphics2D object.
+     * 
+     * @param g Provided object for drawing
+     */
     @Override
     public void draw(Graphics2D g) {
         fillBackground(g);
@@ -45,6 +58,10 @@ public class Tron extends Core {
         }
     }
 
+    /**
+     * Helper method that fills entire screen with black color.
+     * @param g Provided object for drawing
+     */
     private void fillBackground(Graphics2D g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
@@ -60,16 +77,32 @@ public class Tron extends Core {
         }
     }
 
+    /**
+     * Main method of the game.
+     * Creates instance of Tron and calls its run method.
+     * 
+     * @param args 
+     */
     public static void main(String[] args) {
         new Tron().run();
     }
 
+    /**
+     * Event handler for user's key input
+     * 
+     * @param e User's key input
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         super.keyPressed(e);
         tronDataModel.changePlayerOrientation(e);
     }
 
+    /**
+     * Event handler for user's mouse input
+     * 
+     * @param e User's mouse input
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         tronDataModel.changePlayerOrientation(e);

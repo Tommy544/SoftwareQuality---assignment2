@@ -33,7 +33,6 @@ public class Player {
     private int leftKey;
     private int rightKey;
     private AbstractController controller;
-    boolean mousecontroled = false;
 
     /**
      * Simple constructor.
@@ -165,6 +164,10 @@ public class Player {
 
     public Color getColor() {
         return color;
+    }
+
+    public Direction getCurrentDirection() {
+        return currentDirection;
     }
 
     

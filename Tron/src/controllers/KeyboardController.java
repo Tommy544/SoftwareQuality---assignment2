@@ -10,7 +10,8 @@ import java.awt.event.KeyListener;
 import tron.Direction;
 
 /**
- *
+ * Controller that handles keyboard inputs.
+ * 
  * @author vcaniga
  */
 public class KeyboardController extends AbstractController implements KeyListener {
@@ -20,6 +21,14 @@ public class KeyboardController extends AbstractController implements KeyListene
     private int leftKey;
     private int rightkey;
     
+    /**
+     * Simple constructor
+     * 
+     * @param upKey Key code associated to the UP direction
+     * @param downKey Key associated to the DOWN direction
+     * @param leftKey Key associated to the LEFT direction
+     * @param rightKey Key associated to the RIGHT direction
+     */
     public KeyboardController(int upKey, int downKey, int leftKey, int rightKey) {
         this.upKey = upKey;
         this.downKey = downKey;
@@ -31,6 +40,12 @@ public class KeyboardController extends AbstractController implements KeyListene
     public void keyTyped(KeyEvent e) {
     }
 
+    /**
+     * Key press event that determines the next direction and calls AbstractController's
+     * method to process new direction.
+     * 
+     * @param e 
+     */
     @Override
     public void keyPressed(KeyEvent e) {
        int keyCode = e.getKeyCode();
@@ -49,11 +64,5 @@ public class KeyboardController extends AbstractController implements KeyListene
     @Override
     public void keyReleased(KeyEvent e) {
     }
-
-    public int getUpKey() {
-        return upKey;
-    }
-    
-    
     
 }

@@ -6,12 +6,14 @@
 package tron;
 
 import controllers.KeyboardController;
+import controllers.MouseController;
 import engine.Core;
 import engine.Game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -70,6 +72,15 @@ public class TronGame implements Game {
             tron.engine.registerNewController(player2Controller);
             Player player2 = new Player(new Point(300, 300), Direction.RIGHT, Color.blue, player2Controller);
             tron.addNewPlayer(player2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error occured: The game engine does not yet support that type of input device");
+        }
+        
+        try {
+            MouseController player3Controller = new MouseController(MouseEvent.BUTTON1, MouseEvent.BUTTON3);
+            tron.engine.registerNewController(player3Controller);
+            Player player3 = new Player(new Point(150, 150), Direction.DOWN, Color.red, player3Controller);
+            tron.addNewPlayer(player3);
         } catch (IllegalArgumentException e) {
             System.out.println("Error occured: The game engine does not yet support that type of input device");
         }

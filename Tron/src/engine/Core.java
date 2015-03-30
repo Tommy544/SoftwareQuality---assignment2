@@ -4,13 +4,9 @@ import controllers.AbstractController;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
-//public abstract class Core implements KeyListener, MouseListener,
-//        MouseMotionListener {
 public class Core {
 
     private static final DisplayMode modes[] = {
@@ -60,10 +56,7 @@ public class Core {
         w.setBackground(Color.WHITE);
         w.setForeground(Color.RED);
         w.setCursor(w.getToolkit().createCustomCursor(new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null"));
-        
-//        w.addKeyListener(this);
-//        w.addMouseListener(this);
-//        w.addMouseMotionListener(this);
+        addBasicKeyControlls();
         running = true;
     }
 
@@ -105,47 +98,28 @@ public class Core {
             throw new IllegalArgumentException("This engine currently dow not support that type of input device.");
         }
     }
-    
-    
-
-    //public abstract void draw(Graphics2D g);
-
-//    @Override
-//    public void keyTyped(KeyEvent e) {}
-//
-//    @Override
-//    public void keyPressed(KeyEvent e) {
-//        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//            stop();
-//        }
-//    }
-//
-//    @Override
-//    public void keyReleased(KeyEvent e) {}
-//
-//    @Override
-//    public void mouseClicked(MouseEvent e) {}
-//
-//    @Override
-//    public void mousePressed(MouseEvent e) {}
-//
-//    @Override
-//    public void mouseReleased(MouseEvent e) {}
-//
-//    @Override
-//    public void mouseEntered(MouseEvent e) {}
-//
-//    @Override
-//    public void mouseExited(MouseEvent e) {}
-//
-//    @Override
-//    public void mouseDragged(MouseEvent e) {}
-//
-//    @Override
-//    public void mouseMoved(MouseEvent e) {}
 
     public ScreenManager getSm() {
         return sm;
     }
 
+    private void addBasicKeyControlls() {
+        w.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    stop();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
+    }
 }

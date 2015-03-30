@@ -12,7 +12,8 @@ import tron.Direction;
 /**
  * Controller that handles keyboard inputs.
  * 
- * @author vcaniga
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public class KeyboardController extends AbstractController implements KeyListener {
     

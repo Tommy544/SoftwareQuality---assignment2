@@ -8,10 +8,19 @@ package engine;
 import java.awt.Graphics2D;
 
 /**
- *
- * @author vcaniga
+ * Interface that represents single required method that needs to be implemented
+ * by a class that is then recognizable by engine as a Game
+ * 
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public interface Game {
     
+    /**
+     * A method that is called by the engine and expects client game to render 
+     * next frame.
+     * 
+     * @param g 
+     */
     public void drawNextScene(Graphics2D g);
 }

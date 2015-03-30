@@ -16,19 +16,30 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 /**
- *
- * @author vcaniga
+ * Main class of the Tron game that also contains the main method.
+ * Implements interface Game so that the engine can recognize Tron as a game.
+ * 
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public class TronGame implements Game {
 
+    /**
+     * The amount of pixels the player should move in one step
+     */
     private static int moveAmount = 5;
 
-    private final Core engine;
+    private final Core engine; // Instance of the engine this game is based on
     private final TronDataModel dataModel;
     private final TronPresentation presentation;
     private final int windowWidth;
     private final int windowHeight;
 
+    /**
+     * Constructor of the Tron game.
+     * Initializes the engine of the game, classes that represent data model and
+     * presentation of the Tron game.
+     */
     public TronGame() {
         engine = new Core(this);
         engine.init();
@@ -38,14 +49,23 @@ public class TronGame implements Game {
         presentation = new TronPresentation(windowWidth, windowHeight);
     }
 
+    /**
+     * Method used for starting the Tron game
+     */
     public void startGame() {
         engine.run();
     }
 
+    /**
+     * Adds a new player that is passed as a parameter to the game
+     * 
+     * @param player New Player that is to be added to the game
+     */
     public void addNewPlayer(Player player) {
         dataModel.registerPlayer(player);
     }
-
+    
+    
     @Override
     public void drawNextScene(Graphics2D g) {
         dataModel.movePlayers();
@@ -55,6 +75,13 @@ public class TronGame implements Game {
         }
     }
 
+    /**
+     * main method of the game.
+     * Creates instance of the TronGame class, adds players to the game and then
+     * it starts the game.
+     * 
+     * @param args 
+     */
     public static void main(String[] args) {
         TronGame tron = new TronGame();
         

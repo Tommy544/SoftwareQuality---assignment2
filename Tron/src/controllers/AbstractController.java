@@ -12,7 +12,8 @@ import tron.Player;
  * Abstract controller that defines basic interaction with ingame Player object.
  * All user defined controllers must extend this class.
  * 
- * @author vcaniga
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public abstract class AbstractController {
     

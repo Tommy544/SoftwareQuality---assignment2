@@ -3,11 +3,8 @@ package tron;
 import controllers.AbstractController;
 import java.awt.Color;
 import java.awt.Point;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import javax.naming.directory.DirContext;
 import static tron.Direction.*;
 
 /*
@@ -24,37 +21,20 @@ import static tron.Direction.*;
  */
 public class Player {
 
-    private Point position;
-    private Direction currentDirection;
-    private Color color;
-    private List<Point> path = new ArrayList<>();
-    private int upKey;
-    private int downKey;
-    private int leftKey;
-    private int rightKey;
-    private AbstractController controller;
-
+    private Point position; // actual position on game map of the Player
+    private Direction currentDirection; // actual direction of the Player
+    private Color color; // color of the Player
+    private List<Point> path = new ArrayList<>(); // path of the player's bike represented by all past Player positions
+    private AbstractController controller; // controller associated to the Player
+    
     /**
      * Simple constructor.
-     *
-     * @param position Position of the player on the game map
-     * @param currentDirection Current direction the player is facing
-     * @param color The color of the player bike
-     * @param up Key code for changing direction to UP
-     * @param down Key code for changing direction to DOWN
-     * @param left Key code for changing direction to LEFT
-     * @param right Key code for changing direction to RIGHT
+     * 
+     * @param position The position on game map where Player should be spawned
+     * @param currentDirection The direction that the player should be facing when spawned
+     * @param color The color of the Player
+     * @param controller The controller instance that is used to control this player
      */
-//    public Player(Point position, Direction currentDirection, Color color, int up, int down, int left, int right) {
-//        this.position = position;
-//        this.currentDirection = currentDirection;
-//        this.color = color;
-//        this.upKey = up;
-//        this.downKey = down;
-//        this.leftKey = left;
-//        this.rightKey = right;
-//    }
-    
     public Player(Point position, Direction currentDirection, Color color, AbstractController controller) {
         this.position = position;
         this.currentDirection = currentDirection;
@@ -63,6 +43,14 @@ public class Player {
         controller.associatePlayer(this);
     }
 
+    /**
+     * Method moves player on the game map in the direction he is heading and by
+     * amount of pixels passed by "amount" parameter
+     * 
+     * @param amount The amount of pixels the the Player should move in one step
+     * @param windowHeight Height of the game Window
+     * @param windowWidth Width of the game Window
+     */
     public void moveBy(int amount, int windowHeight, int windowWidth) {
         switch (currentDirection) {
             case UP:
@@ -98,10 +86,20 @@ public class Player {
         appendCurrentPositionToPath();
     }
 
+    /**
+     * Used for creation of the Player's path.
+     * Appends current position of the Player to the end of his path.
+     */
     public void appendCurrentPositionToPath() {
         path.add(new Point(position));
     }
 
+    /**
+     * Checks if Player at this moment collides with other players of himself.
+     * 
+     * @param otherPlayers Other players that are checked against this Player
+     * @return true if there is a collision, false if not
+     */
     public boolean collidesWithOtherPlayers(List<Player> otherPlayers) {
         if (otherPlayers == null) {
             throw new IllegalArgumentException("otherPlayers cannot be null.");
@@ -119,6 +117,12 @@ public class Player {
         return false;
     }
 
+    /**
+     * Checks if Player collides with a single other Player
+     * 
+     * @param otherPlayer Other player that is checked against this Player
+     * @return true if there is a collision, false if not
+     */
     public boolean collidesWithOtherPlayer(Player otherPlayer) {
         if (otherPlayer == null) {
             throw new NullPointerException("otherPlayer cannot be null.");
@@ -135,6 +139,11 @@ public class Player {
         return false;
     }
 
+    /**
+     * Checks if Player collides with himself
+     * 
+     * @return true if there is a collision, false if not
+     */
     public boolean collidesWithSelf() {
         for (int i = 0; i < path.size() - 1; i++) {
             if (position.equals(path.get(i))) {
@@ -144,6 +153,12 @@ public class Player {
         return false;
     }
 
+    /**
+     * Tries to change player's current direction to the direction passed as a parameter.
+     * Current direction remains unchanged if the new direction is 180° from the current one.
+     * 
+     * @param direction Requested new direction
+     */
     public void tryChangeOrientation(Direction direction) {
 
         if (direction == UP && currentDirection != DOWN) {
@@ -157,7 +172,7 @@ public class Player {
         }
 
     }
-
+    
     public List<Point> getPath() {
         return path;
     }

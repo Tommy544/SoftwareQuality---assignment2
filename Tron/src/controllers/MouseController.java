@@ -7,19 +7,25 @@ package controllers;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.event.MouseInputListener;
 import tron.Direction;
 
 /**
- * Controller
+ * Controller that handles Mouse inputs
  * 
- * @author vcaniga
+ * @author Vladimir Caniga
+ * @author Jakub Smolar
  */
 public class MouseController extends AbstractController implements MouseListener {
     
     private int turnLeftKey;
     private int turnRightKey;
     
+    /**
+     * Simple constructor.
+     * 
+     * @param turnLeftKey Mouse Button code associated to turnLeft action
+     * @param turnRightKey Mouse Button code associated to turnRight action
+     */
     public MouseController(int turnLeftKey, int turnRightKey) {
         this.turnLeftKey = turnLeftKey;
         this.turnRightKey = turnRightKey;
@@ -29,6 +35,12 @@ public class MouseController extends AbstractController implements MouseListener
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+     * Key press event that determines the next direction and calls AbstractController's
+     * method to process new direction.
+     * 
+     * @param e 
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         if (e.getButton() == turnLeftKey) {

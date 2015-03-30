@@ -12,7 +12,7 @@ package tron;
  * @author Vladimir Caniga
  * @author Jakub Smolar
  */
-public enum DirectionEnum {
+public enum Direction {
     UP,
     DOWN,
     LEFT,
@@ -24,7 +24,7 @@ public enum DirectionEnum {
      * @param direction Original direction
      * @return Direction after the turn
      */
-    public static DirectionEnum turnRight(DirectionEnum direction) {
+    public static Direction rightOf(Direction direction) {
         switch (direction) {
             case UP:
                 return RIGHT;
@@ -45,7 +45,7 @@ public enum DirectionEnum {
      * @param direction Original direction
      * @return Direction after the turn
      */
-    public static DirectionEnum turnLeft(DirectionEnum direction) {
+    public static Direction leftOf(Direction direction) {
         switch (direction) {
             case UP:
                 return LEFT;

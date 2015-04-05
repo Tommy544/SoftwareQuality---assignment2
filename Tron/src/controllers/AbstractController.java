@@ -22,6 +22,10 @@ public abstract class AbstractController {
      */
     protected Player associatedPlayer;
     
+    protected AbstractController(Player player) {
+        this.associatedPlayer = player;
+    }
+    
     /**
      * Associates Player instance with this controller.
      * This method must be called immediately after construction of the controller.
@@ -37,13 +41,14 @@ public abstract class AbstractController {
     }
     
     /**
-     * Processes new direction that was determined by controller and passes the direction
-     * to the Player, to try to change his orientation.
+     * Processes new direction that was determined by controller, checks if the new
+     * direction is valid considering Player's current direction and updates Player's
+     * current orientation.
      * 
      * @param direction New Player direction determined by the controller
      */
     public void processNewDirection(Direction direction) {
-        associatedPlayer.tryChangeOrientation(direction);
+        associatedPlayer.setCurrentDirection(Direction.tryChangeOrientation(associatedPlayer.getCurrentDirection(), direction));
     }
     
 }

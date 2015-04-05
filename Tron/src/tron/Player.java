@@ -1,6 +1,5 @@
 package tron;
 
-import controllers.AbstractController;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ public class Player {
     private Direction currentDirection; // actual direction of the Player
     private Color color; // color of the Player
     private List<Point> path = new ArrayList<>(); // path of the player's bike represented by all past Player positions
-    private AbstractController controller; // controller associated to the Player
     
     /**
      * Simple constructor.
@@ -33,14 +31,11 @@ public class Player {
      * @param position The position on game map where Player should be spawned
      * @param currentDirection The direction that the player should be facing when spawned
      * @param color The color of the Player
-     * @param controller The controller instance that is used to control this player
      */
-    public Player(Point position, Direction currentDirection, Color color, AbstractController controller) {
+    public Player(Point position, Direction currentDirection, Color color) {
         this.position = position;
         this.currentDirection = currentDirection;
         this.color = color;
-        this.controller = controller;
-        controller.associatePlayer(this);
     }
 
     /**
@@ -152,26 +147,6 @@ public class Player {
         }
         return false;
     }
-
-    /**
-     * Tries to change player's current direction to the direction passed as a parameter.
-     * Current direction remains unchanged if the new direction is 180° from the current one.
-     * 
-     * @param direction Requested new direction
-     */
-    public void tryChangeOrientation(Direction direction) {
-
-        if (direction == UP && currentDirection != DOWN) {
-            currentDirection = direction;
-        } else if (direction == DOWN && currentDirection != Direction.UP) {
-            currentDirection = DOWN;
-        } else if (direction == LEFT && currentDirection != RIGHT) {
-            currentDirection = LEFT;
-        } else if (direction == RIGHT && currentDirection != LEFT) {
-            currentDirection = RIGHT;
-        }
-
-    }
     
     public List<Point> getPath() {
         return path;
@@ -185,5 +160,7 @@ public class Player {
         return currentDirection;
     }
 
-    
+    public void setCurrentDirection(Direction currentDirection) {
+        this.currentDirection = currentDirection;
+    }    
 }

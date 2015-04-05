@@ -86,27 +86,27 @@ public class TronGame implements Game {
         TronGame tron = new TronGame();
         
         try {
-            KeyboardController player1Controller = new KeyboardController(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
+            Player player1 = new Player(new Point(40, 40), Direction.RIGHT, Color.yellow);
+            KeyboardController player1Controller = new KeyboardController(player1, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
             tron.engine.registerNewController(player1Controller);
-            Player player1 = new Player(new Point(40, 40), Direction.RIGHT, Color.yellow, player1Controller);
             tron.addNewPlayer(player1);
         } catch (IllegalArgumentException e) {
             System.out.println("Error occured: The game engine does not yet support that type of input device");
         }
 
         try {
-            KeyboardController player2Controller = new KeyboardController(KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
+            Player player2 = new Player(new Point(300, 300), Direction.RIGHT, Color.blue);
+            KeyboardController player2Controller = new KeyboardController(player2, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
             tron.engine.registerNewController(player2Controller);
-            Player player2 = new Player(new Point(300, 300), Direction.RIGHT, Color.blue, player2Controller);
             tron.addNewPlayer(player2);
         } catch (IllegalArgumentException e) {
             System.out.println("Error occured: The game engine does not yet support that type of input device");
         }
         
         try {
-            MouseController player3Controller = new MouseController(MouseEvent.BUTTON1, MouseEvent.BUTTON3);
+            Player player3 = new Player(new Point(150, 150), Direction.DOWN, Color.red);
+            MouseController player3Controller = new MouseController(player3, MouseEvent.BUTTON1, MouseEvent.BUTTON3);
             tron.engine.registerNewController(player3Controller);
-            Player player3 = new Player(new Point(150, 150), Direction.DOWN, Color.red, player3Controller);
             tron.addNewPlayer(player3);
         } catch (IllegalArgumentException e) {
             System.out.println("Error occured: The game engine does not yet support that type of input device");

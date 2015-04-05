@@ -8,6 +8,7 @@ package controllers;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import tron.Direction;
+import tron.Player;
 
 /**
  * Controller that handles keyboard inputs.
@@ -30,7 +31,8 @@ public class KeyboardController extends AbstractController implements KeyListene
      * @param leftKey Key associated to the LEFT direction
      * @param rightKey Key associated to the RIGHT direction
      */
-    public KeyboardController(int upKey, int downKey, int leftKey, int rightKey) {
+    public KeyboardController(Player player, int upKey, int downKey, int leftKey, int rightKey) {
+        super(player);
         this.upKey = upKey;
         this.downKey = downKey;
         this.leftKey = leftKey;

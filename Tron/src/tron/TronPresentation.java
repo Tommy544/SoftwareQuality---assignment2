@@ -5,11 +5,8 @@
  */
 package tron;
 
-import engine.Core;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**
@@ -24,25 +21,6 @@ public class TronPresentation {
     private final int MOVE_AMOUNT = 5;
     private final int windowWidth;
     private final int windowHeight;
-
-    /**
-     * Initialization method that initializes internal data model class - TronDataModel
-     * and registers players to game.
-     * Overrides calls init() method of superclass Core.
-     */
-//    @Override
-//    public void init() {
-//        super.init();
-//
-//        tronDataModel = new TronDataModel(MOVE_AMOUNT, sm.getWidth(), sm.getHeight());
-//
-//        // ========= To choose which players are to be included in-game, comment/uncomment appropriate lines below ===========
-//        tronDataModel.registerPlayer(1, w); // <-- Yellow player, up: UP; down: DOWN; left: LEFT; right: RIGHT;
-//        tronDataModel.registerPlayer(2, w); // <-- Blue player, up: W; down: S; left: A; right: D;
-//        tronDataModel.registerPlayer(3, w); // <-- Green player, up: I; down: K; left: J; right: L
-//        //tronDataModel.registerPlayer(4, w); // <-- Red player, mouse controlls - turn left: Left Mouse Button; turn right Right Mouse Button
-//        // ===================================================================================================================
-//    }
     
     public TronPresentation(int windowWidth, int windowHeight) {
         this.windowWidth = windowWidth;
@@ -76,36 +54,5 @@ public class TronPresentation {
             }
         }
     }
-
-    /**
-     * Main method of the game.
-     * Creates instance of TronPresentation and calls its run method.
-     * 
-     * @param args 
-     */
-//    public static void main(String[] args) {
-//        new TronPresentation().run();
-//    }
-
-    /**
-     * Event handler for user's key input
-     * 
-     * @param e User's key input
-     */
-//    @Override
-//    public void keyPressed(KeyEvent e) {
-//        super.keyPressed(e);
-//        tronDataModel.changePlayerOrientation(e);
-//    }
-//
-//    /**
-//     * Event handler for user's mouse input
-//     * 
-//     * @param e User's mouse input
-//     */
-//    @Override
-//    public void mouseClicked(MouseEvent e) {
-//        tronDataModel.changePlayerOrientation(e);
-//    }
 
 }

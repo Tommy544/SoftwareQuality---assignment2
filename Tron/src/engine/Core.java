@@ -23,7 +23,6 @@ public class Core {
     protected ScreenManager sm;
     protected Window w;
     private DisplayMode dm;
-    private Animation animation;
     
     private Game game;
     
@@ -47,7 +46,6 @@ public class Core {
     }
 
     public void init() {
-        animation = new Animation();
         sm = new ScreenManager();
         dm = sm.findFirstCompatibaleMode(modes);
         sm.setFullScreen(dm);
@@ -71,10 +69,8 @@ public class Core {
             update(timePassed);
             Graphics2D g = sm.getGraphics();
             game.drawNextScene(g);
-            //draw(g);
             bImg.flush();
             g.drawImage(bImg, null, 0, 0);
-            animation.addScene(bImg, cumTime);
             g.dispose();
             sm.update();
 
@@ -86,7 +82,6 @@ public class Core {
     }
 
     public void update(long timePassed) {
-        animation.update(timePassed);
     }
     
     public void registerNewController(AbstractController controller) {

@@ -59,4 +59,25 @@ public enum Direction {
                 return null;
         }
     }
+    
+    /**
+     * Method checks if the requested direction isn't exactly opposite of the Player's
+     * current direction.
+     * 
+     * @param currentDirection Player's current direction
+     * @param requestedDirection New requested direction for the Player
+     * @return requestedDirection if it is not opposite of the current direction
+     *          currentDirection if it is
+     */
+    public static Direction tryChangeOrientation(Direction currentDirection, Direction requestedDirection) {
+       
+        if ((requestedDirection == UP && currentDirection == DOWN)
+                || (requestedDirection == DOWN && currentDirection == UP)
+                || (requestedDirection == LEFT && currentDirection == RIGHT)
+                || (requestedDirection == RIGHT && currentDirection == LEFT)) {
+            return currentDirection;
+        } else {
+            return requestedDirection;
+        }
+    }
 }

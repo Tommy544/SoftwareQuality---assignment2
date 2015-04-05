@@ -8,6 +8,7 @@ package controllers;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import tron.Direction;
+import tron.Player;
 
 /**
  * Controller that handles Mouse inputs
@@ -26,7 +27,8 @@ public class MouseController extends AbstractController implements MouseListener
      * @param turnLeftKey Mouse Button code associated to turnLeft action
      * @param turnRightKey Mouse Button code associated to turnRight action
      */
-    public MouseController(int turnLeftKey, int turnRightKey) {
+    public MouseController(Player player, int turnLeftKey, int turnRightKey) {
+        super(player);
         this.turnLeftKey = turnLeftKey;
         this.turnRightKey = turnRightKey;
     }
